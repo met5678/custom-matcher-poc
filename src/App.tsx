@@ -27,21 +27,21 @@ function asStack(cell: Choice | ChoiceStack): ChoiceStack {
 }
 
 function compactGrid(grid: Cell[], size: number): Cell[] {
-  const rows = []
+  const rows: Cell[][] = []
   const rowSize = GRID_SIZE
   const rowCount = Math.ceil(size / rowSize)
 
   for (let row = 0; row < rowCount; row += 1) {
     const start = row * rowSize
     const slice = grid.slice(start, start + rowSize)
-    const compacted = slice.filter((cell) => cell !== null)
+    const compacted: Cell[] = slice.filter((cell) => cell !== null)
     while (compacted.length < rowSize) {
       compacted.push(null)
     }
     rows.push(compacted)
   }
 
-  const nonEmptyRows = rows.filter((row) => row.some((cell) => cell !== null))
+  const nonEmptyRows: Cell[][] = rows.filter((row) => row.some((cell) => cell !== null))
   while (nonEmptyRows.length < rowCount) {
     nonEmptyRows.push(Array.from({ length: rowSize }, () => null))
   }
