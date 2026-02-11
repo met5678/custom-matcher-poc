@@ -21,8 +21,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
-      - run: yarn install --frozen-lockfile
+      - run: corepack enable
+      - run: corepack prepare yarn@4.12.0 --activate
+      - run: yarn install --immutable
       - run: BASE_PATH=/custom-matcher-poc/ yarn build
       - uses: actions/upload-pages-artifact@v3
         with:
