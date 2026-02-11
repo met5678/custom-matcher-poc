@@ -1,6 +1,6 @@
 import { csvToObjects, parseCsv } from './csv'
 
-const defaultCsvUrl = '/data/emily.csv'
+const defaultCsvUrl = `${import.meta.env.BASE_URL}data/emily.csv`
 const defaultSheetId = '1DivkkqCfLKrkckF0bydK1tpjhktIZOtqgzaMokkhxVs'
 const defaultGid = '0'
 

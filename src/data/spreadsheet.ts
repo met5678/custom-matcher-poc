@@ -1,7 +1,7 @@
 import { csvToObjects, parseCsv } from './csv'
 import type { Category, Choice, Cell } from '../types/types'
 
-const defaultCsvUrl = '/data/emily.csv'
+const defaultCsvUrl = `${import.meta.env.BASE_URL}data/emily.csv`
 
 type SheetData = {
   categories: Category[]
