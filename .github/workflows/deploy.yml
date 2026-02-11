@@ -23,8 +23,9 @@ jobs:
           node-version: 20
       - run: corepack enable
       - run: corepack prepare yarn@4.12.0 --activate
-      - run: yarn install --immutable
-      - run: BASE_PATH=/custom-matcher-poc/ yarn build
+      - run: corepack yarn --version
+      - run: corepack yarn install --immutable
+      - run: BASE_PATH=/custom-matcher-poc/ corepack yarn build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
