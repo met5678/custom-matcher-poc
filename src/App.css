@@ -115,6 +115,6 @@
 
 .grid-cell.empty {
   background: transparent;
-  border: 1px dashed rgba(167, 154, 143, 0.4);
+  border: none;
   min-height: 40px;
 }

@@ -27,8 +27,26 @@ function asStack(cell: Choice | ChoiceStack): ChoiceStack {
 }
 
 function compactGrid(grid: Cell[], size: number): Cell[] {
-  const filled = grid.filter((cell): cell is Exclude<Cell, null> => cell !== null)
-  return [...filled, ...Array.from({ length: size - filled.length }, () => null)]
+  const rows = []
+  const rowSize = GRID_SIZE
+  const rowCount = Math.ceil(size / rowSize)
+
+  for (let row = 0; row < rowCount; row += 1) {
+    const start = row * rowSize
+    const slice = grid.slice(start, start + rowSize)
+    const compacted = slice.filter((cell) => cell !== null)
+    while (compacted.length < rowSize) {
+      compacted.push(null)
+    }
+    rows.push(compacted)
+  }
+
+  const nonEmptyRows = rows.filter((row) => row.some((cell) => cell !== null))
+  while (nonEmptyRows.length < rowCount) {
+    nonEmptyRows.push(Array.from({ length: rowSize }, () => null))
+  }
+
+  return nonEmptyRows.flat()
 }
 
 function getCategoryName(categoryId: string, categories: readonly Category[]) {
@@ -249,7 +267,7 @@ function App() {
           <div className="grid">
             {snap.grid.map((cell, index) => {
               if (!cell) {
-                return <div key={`empty-${index}`} className="grid-cell empty" />
+                return <div key={`empty-${index}`} className="grid-cell empty" aria-hidden="true" />
               }
 
               const isSelected = snap.selectedIndex === index
